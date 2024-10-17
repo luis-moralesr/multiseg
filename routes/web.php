@@ -18,11 +18,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Auth::routes();
 
 
 Route::middleware(['admin'])->group(function () {
     Route::resource('admin/dashboard',AdminController::class);
+});
+
+
+Route::get('video', function () {
+    return view('video');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
