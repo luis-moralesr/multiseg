@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="container">
+    @include('includes.search')
+    <div class="row">
+        <div class="col">
+            <h1>Lorem </h1>
+        </div>
+    </div>
+    <div class="row">
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni qui eligendi aspernatur accusamus tenetur, consectetur maxime quas velit officia in dolorem inventore. Ipsam dolor expedita harum repellat quaerat mollitia aliquid!Animi hic enim voluptates itaque. Fuga ipsam nisi veritatis labore ab, incidunt ducimus. Nam quidem possimus sequi assumenda laborum ex dolor, cumque sapiente dicta. Repellendus itaque nam cum quibusdam esse.</p>
+    </div>
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
 
