@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,5 +19,10 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+
+Route::middleware(['admin'])->group(function () {
+    Route::resource('admin/dashboard',AdminController::class);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
