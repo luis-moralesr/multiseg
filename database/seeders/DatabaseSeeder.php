@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         // Llamadas a múltiples seeders
         $this->call([
             AdminSeeder::class,
+            CourseSeeder::class,
 
         ]);
     }
