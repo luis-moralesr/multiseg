@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CourseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,7 @@ Auth::routes();
 
 Route::middleware(['admin'])->group(function () {
     Route::resource('admin/dashboard',AdminController::class);
+    Route::resource('admin/courses',CourseController::class);
 });
 
 

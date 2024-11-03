@@ -13,7 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-
+<link rel="stylesheet" href="{{asset('css/styles.css')}}">
     {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-DqME6eCz.css') }}"> --}}
 
     <!-- Scripts -->
@@ -38,7 +38,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    {{-- <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -71,7 +71,7 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul> --}}
+                    </ul>
                 </div>
             </div>
         </nav>
