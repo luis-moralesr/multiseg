@@ -16,7 +16,7 @@ class CourseController extends Controller
             $query->where('name', 'like', '%' . $request->input('name') . '%');
         }
 
-        $courses = $query->paginate(4);
+        $courses = $query->paginate(2);
 
 
         return view('admin.courses', compact('courses'));

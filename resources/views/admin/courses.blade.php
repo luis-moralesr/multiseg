@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container fondo">
-        <div class="row">
+        <div class="row mb-2">
             <div class="col">
-                <div class="mt-2">
+                <div class="mt-4">
                     <a href="{{ asset('admin/dashboard') }}">
                         <button class="btn btn-danger">REGRESAR</button>
                     </a>
@@ -74,9 +74,13 @@
                     @endforeach
                 </div>
             </div>
-
-
-
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="col d-flex justify-content-center">
+                    {{ $courses->links('pagination::bootstrap-5') }}
+                </div>
+            </div>
         </div>
 
     </div>

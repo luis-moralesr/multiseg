@@ -35,6 +35,6 @@ class LoginController extends Controller
             return '/admin/dashboard';
         }
 
-        return '/home'; // Redirige a 'home' si el rol es 'user' u otro valor
+        return '/welcome'; // Redirige a 'home' si el rol es 'user' u otro valor
     }
 }
