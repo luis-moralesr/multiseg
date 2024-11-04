@@ -2,16 +2,61 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">NUEVO CURSO</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <form action="{{ route('courses.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
         <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nameInput" placeholder="Nombre del curso" name="name">
+                            <label for="nameInput">Nombre</label>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <textarea  type="text" class="form-control" id="descriptionInput" placeholder="Descripción del curso" name="description" style="height: 100px"></textarea>
+                            <label for="descriptionInput">Descripción</label>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="linkInput" placeholder="Ingrese la Url" name="url">
+                            <label for="linkInput">Url del Video</label>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="durationInput" placeholder="Ingrese la duración den segundos" name="duration">
+                            <label for="durationInput">Duración del video en segundos</label>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="imageInput" class="form-label">Imagen miniatura</label>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="imageInput" name="image">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+      </form>
       </div>
     </div>
   </div>

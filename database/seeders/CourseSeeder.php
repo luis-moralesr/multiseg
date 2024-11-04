@@ -18,6 +18,7 @@ class CourseSeeder extends Seeder
             'description'=>'"En este artículo, aprenderás paso a paso cómo acceder a tu cámara IP desde cualquier lugar utilizando una conexión a internet. Además, te explicaremos cómo configurar la app DMSS para ver las transmisiones en vivo de tu cámara IP de manera segura y sencilla desde tu dispositivo móvil. ¡Mantente conectado con lo que importa!"',
             'url'=>'https://www.youtube.com/watch?v=HjiCIqXSMOY',
             'duration'=>'168',
+            'image'=>'courses/multiseg.jpg',
             'views'=>'1',
             'likes'=>'1',
         ]);
@@ -27,6 +28,7 @@ class CourseSeeder extends Seeder
             'description'=>'"En este artículo, aprenderás paso a paso cómo acceder a tu cámara IP desde cualquier lugar utilizando una conexión a internet. Además, te explicaremos cómo configurar la app DMSS para ver"',
             'url'=>'https://www.youtube.com/watch?v=HjiCIqXSMOY',
             'duration'=>'168',
+            'image'=>'courses/multiseg.jpg',
             'views'=>'1',
             'likes'=>'1',
         ]);
@@ -36,6 +38,7 @@ class CourseSeeder extends Seeder
             'description'=>'"En este artículo, aprenderás paso a paso cómo acceder a tu cámara IP desde cualquier lugar utilizando una conexión a internet. Además, te explicaremos cómo configurar la app DMSS para ver las transmisiones en vivo de tu cámara IP de manera segura y sencilla desde tu dispositivo móvil. ¡Mantente conectado con lo que importa!"',
             'url'=>'https://www.youtube.com/watch?v=HjiCIqXSMOY',
             'duration'=>'168',
+            'image'=>'courses/multiseg.jpg',
             'views'=>'1',
             'likes'=>'1',
         ]);

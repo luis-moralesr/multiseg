@@ -18,12 +18,11 @@
         </div>
         <div class="row mb-2">
             <div class="col-12 col-md-6 mx-auto">
-                <form action="">
-                    @csrf
+                <form action="{{route('courses.index')}}" method="GET">
                     <div class="input-group mb-3 d-flex justify-content-center">
                         <input type="text" class="form-control" placeholder="Nombre del curso"
-                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Buscar</button>
+                            aria-label="Recipient's username" aria-describedby="button-addon2" name="name">
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
                     </div>
                 </form>
             </div>
@@ -39,6 +38,28 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-2">
+            <div class="col">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    </div>
+                @elseif(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    </div>
+                @endif
+
+            </div>
+        </div>
         <div class="row">
             <div class="container">
                 <div class="row">
@@ -47,8 +68,7 @@
                             <div class="card h-100 shadow-sm">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="{{ asset('img/multiseg.jpg') }}" class="img-fluid rounded-start"
-                                            alt="..." style="height: 100%">
+                                        <img src="{{ asset('img/' . $course->image) }}"alt="Imagen" class="img-fluid">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body h-100 d-flex flex-column">

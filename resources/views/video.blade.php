@@ -1,53 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    body {
-        background-color: #f7f7f7;
-    }
-    .comment-section {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-    .comment-box {
-        background-color: #f0f0f0;
-        border: none;
-        border-radius: 5px;
-        padding: 10px;
-    }
-    .comment-list {
-        margin-top: 20px;
-    }
-    .comment-item {
-        background-color: #e9ecef;
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-</style>
-    <div class="container">
+
+    <div class="container fondo">
         @include('includes.search')
         <div class="row">
             <div class="col">
-                <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. </h1>
-                <h3>Lorem ipsum </h3>
+                <h1>{{$courses->name}} </h1>
             </div>
         </div>
         <div class="row">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni qui eligendi aspernatur accusamus tenetur,
-                consectetur maxime quas velit officia in dolorem inventore. Ipsam dolor expedita harum repellat quaerat
-                mollitia aliquid!Animi hic enim voluptates itaque. Fuga ipsam nisi veritatis labore ab, incidunt ducimus.
-                Nam quidem possimus sequi assumenda laborum ex dolor, cumque sapiente dicta. Repellendus itaque nam cum
-                quibusdam esse.</p>
+            <p>{{$courses->description}}</p>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-2">
             <div class="col-12 col-md-8">
 
                 <div style="padding:56.25% 0 0 0;position:relative;"><iframe
-                        src="https://player.vimeo.com/video/1020465290?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                        src="{{$courses->url}}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                         frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                         style="position:absolute;top:0;left:0;width:100%;height:100%;" title="test"></iframe></div>
                 <script src="https://player.vimeo.com/api/player.js"></script>

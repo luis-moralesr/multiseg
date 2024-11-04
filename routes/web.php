@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\VideoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,15 +25,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
 Route::middleware(['admin'])->group(function () {
     Route::resource('admin/dashboard',AdminController::class);
     Route::resource('admin/courses',CourseController::class);
 });
 
-
-Route::get('video', function () {
-    return view('video');
-});
-
+Route::resource('video',VideoController::class);
 Route::resource('/welcome',WelcomeController::class);
