@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\WelcomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,4 +35,4 @@ Route::get('video', function () {
     return view('video');
 });
 
-Route::get('/welcome', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+Route::resource('/welcome',WelcomeController::class);
