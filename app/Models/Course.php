@@ -14,10 +14,24 @@ class Course extends Model
         'name',
         'description',
         'url',
-        'duration',
         'image',
         'views',
         'likes',
         'status',
     ];
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'course_id');
+    }
+
+
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'course_id');
+    }
+
+
+
 }

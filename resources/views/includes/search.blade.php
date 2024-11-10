@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container p-0">
     <div class="row mb-2">
         <div class="col">
             <div class="text-start mt-3">
@@ -8,9 +8,9 @@
             </div>
         </div>
     </div>
-   <div class="row mb-2 mt-3">
+   <div class="row mb-2 mt-3 d-flex align-items-center">
     <div class="col-12 col-md-6">
-        <h1>Multiseg</h1>
+        <img src="{{asset('img/nombre.png')}}" alt="" class="img-fluid w-50">
        </div>
        <div class="col-12 col-md-6">
         <form action="{{route('welcome.index')}}" method="GET">

@@ -17,6 +17,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $primaryKey = 'id';
+    protected $table = "users";
     protected $fillable = [
         'name',
         'email',
@@ -25,6 +27,19 @@ class User extends Authenticatable
         'password',
 
     ];
+
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'student_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'student_id');
+    }
+
+
 
     /**
      * The attributes that should be hidden for serialization.

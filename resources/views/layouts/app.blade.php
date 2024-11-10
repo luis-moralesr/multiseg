@@ -17,6 +17,12 @@
     {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-DqME6eCz.css') }}"> --}}
 
     <!-- Scripts -->
+    <script src="{{asset('js/pdfCourse.js')}}"></script>
+    <script src="{{asset('js/btnUp.js')}}"></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{-- <script src="{{ asset('build/assets/app-CrG75o6_.js') }}"></script> --}}
 </head>
@@ -25,7 +31,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{asset('img/nombre.png')}}" alt=""  style="height: 35px;" >
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

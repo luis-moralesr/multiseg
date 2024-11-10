@@ -35,14 +35,6 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="durationInput" placeholder="Ingrese la duración den segundos" name="duration">
-                            <label for="durationInput">Duración del video en segundos</label>
-                          </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
                         <label for="imageInput" class="form-label">Imagen miniatura</label>
                         <div class="input-group mb-3">
                             <input type="file" class="form-control" id="imageInput" name="image">
