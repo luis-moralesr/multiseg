@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (generatePDFButton) {
         generatePDFButton.addEventListener('click', async function () {
+            // Desactivar el botón y mostrar spinner
+            generatePDFButton.disabled = true;
+            generatePDFButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generando...';
+
             const certificationId = this.getAttribute('data-id');
 
             try {
@@ -17,28 +21,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 // Cargar la plantilla PDF desde la ruta especificada
-                const pdfUrl = '../templates/diploma.pdf'; // Cambia esto a la ruta correcta de la plantilla
+                const pdfUrl = '../templates/diploma.pdf';
                 const pdfBytes = await fetch(pdfUrl).then(res => res.arrayBuffer());
 
                 // Cargar la plantilla PDF en pdf-lib
                 const { PDFDocument, StandardFonts } = PDFLib;
                 const pdfDoc = await PDFDocument.load(pdfBytes);
                 const page = pdfDoc.getPage(0);
-
-                // Cargar la fuente estándar Times Roman en estilo itálico
                 const customFont = await pdfDoc.embedFont(StandardFonts.TimesRomanItalic);
 
-                // Configuración de tamaño de fuente y márgenes
                 let fontSize = 25;
-                let margin = 50; // Márgenes desde los bordes
+                let margin = 50;
                 const pageWidth = page.getWidth();
 
-                // Función para dividir texto en varias líneas y centrarlo dentro de una celda
+                // Función para dividir texto en líneas y centrar
                 const drawCenteredTextInCell = (text, x, y, maxWidth, fontSize) => {
                     const lines = [];
                     let currentLine = '';
 
-                    // Dividir texto en líneas que quepan dentro del ancho máximo
                     text.split(' ').forEach(word => {
                         const testLine = currentLine + (currentLine.length ? ' ' : '') + word;
                         const lineWidth = customFont.widthOfTextAtSize(testLine, fontSize);
@@ -55,48 +55,40 @@ document.addEventListener('DOMContentLoaded', function () {
                         lines.push(currentLine);
                     }
 
-                    // Dibujar cada línea centrada horizontalmente
                     lines.forEach(line => {
                         const lineWidth = customFont.widthOfTextAtSize(line, fontSize);
-                        const lineX = x + (maxWidth - lineWidth) / 2; // Centrado horizontalmente
+                        const lineX = x + (maxWidth - lineWidth) / 2;
                         page.drawText(line, { x: lineX, y, size: fontSize, font: customFont });
-                        y -= fontSize + 4; // Espacio entre líneas
+                        y -= fontSize + 4;
                     });
                 };
 
-                // Ancho máximo para el texto en la celda
                 let maxTextWidth = pageWidth - 2 * margin;
+                let specificYPosition = 225;
 
-                // Posición vertical específica para el texto
-                let specificYPosition = 225; // Ajusta para la posición deseada
-
-                // Dibujar el nombre del estudiante en la posición especificada
                 drawCenteredTextInCell(service.student_name, margin, specificYPosition, maxTextWidth, fontSize);
-
                 fontSize = 12;
-                specificYPosition = 200; // Ajusta para la posición deseada
+                specificYPosition = 200;
                 drawCenteredTextInCell('Por concluir satisfactoriamente su capacitación en', margin, specificYPosition, maxTextWidth, fontSize);
                 fontSize = 15;
-                specificYPosition = 175; // Ajusta para la posición deseada
+                specificYPosition = 175;
                 drawCenteredTextInCell(service.course_name, margin, specificYPosition, maxTextWidth, fontSize);
 
                 margin = 50;
-                maxTextWidth = pageWidth - margin * 2; // Ajusta el ancho máximo restando los márgenes
+                maxTextWidth = pageWidth - margin * 2;
                 fontSize = 10;
 
-                // Posición y formato de fecha para la parte inferior del PDF
-                const xPosition = pageWidth - maxTextWidth - margin; // Alineado a la derecha con margen
+                const xPosition = pageWidth - maxTextWidth - margin;
                 specificYPosition = 50;
 
                 const drawRightAlignedText = (text, y, fontSize) => {
                     const textWidth = customFont.widthOfTextAtSize(text, fontSize);
-                    const x = pageWidth - textWidth - margin; // Alinea a la derecha con el margen especificado
+                    const x = pageWidth - textWidth - margin;
                     page.drawText(text, { x, y, size: fontSize, font: customFont });
                 };
                 const textToDraw = `Código: ${service.key}`;
                 const date = new Date(service.create_at);
 
-                // Formatear la fecha en formato 'dd/mm/yyyy hh:mm:ss'
                 const formattedDate = date.toLocaleString('es-ES', {
                     year: 'numeric',
                     month: 'numeric',
@@ -104,20 +96,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit',
-                    hour12: false, // Formato de 24 horas
+                    hour12: false,
                 });
 
                 const textToDrawTwo = `Fecha: ${formattedDate}`;
 
-                // Llamar a la función drawRightAlignedText
                 drawRightAlignedText(textToDraw, specificYPosition, fontSize);
                 specificYPosition = 30;
                 drawRightAlignedText(textToDrawTwo, specificYPosition, fontSize);
 
-                // Guardar el PDF actualizado
                 const pdfBytesUpdated = await pdfDoc.save();
 
-                // Descargar el PDF modificado
                 const blob = new Blob([pdfBytesUpdated], { type: 'application/pdf' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -128,6 +117,10 @@ document.addEventListener('DOMContentLoaded', function () {
             } catch (error) {
                 console.error('Error al generar el PDF:', error);
                 alert('Error al generar el PDF. Por favor, inténtalo de nuevo.');
+            } finally {
+                // Restaurar el botón y ocultar el spinner
+                generatePDFButton.disabled = false;
+                generatePDFButton.innerHTML = 'Certificado';
             }
         });
     } else {

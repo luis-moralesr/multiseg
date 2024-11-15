@@ -4,6 +4,7 @@ body {
     height: 100% !important;
 }
 
+
 .fondo{
     width: 100%;
     height: auto;
@@ -20,7 +21,7 @@ body {
     bottom: 15px;
     width: 40px;
     height: 40px;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: all 0.3s ease-in-out;
     text-align: center;
     cursor: pointer;
     z-index: 996;

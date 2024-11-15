@@ -75,6 +75,16 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                           <div class="col d-flex justify-content-center">
+                            <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"  name="validation"
+                                    value="{{$validation->key}}" >
+                                <label class="form-check-label" for="preference">Aceptar terminos y condiciones</label>
+                            </div>
+                           </div>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col text-center">
                                 <button type="submit" class="btn btn-primary">

@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             CourseSeeder::class,
             CommentsSeeder::class,
+            ValidationKeySeeder::class,
 
         ]);
     }

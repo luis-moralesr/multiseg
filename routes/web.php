@@ -8,6 +8,8 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\VerificationsController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +27,13 @@ Route::get('/', function () {
 });
 
 
+Route::get('/about', function () {
+    return view('about');
+});
 
-Auth::routes();
+
+
+Auth::routes(['verify' => true]);
 
 Route::middleware(['admin'])->group(function () {
     Route::resource('admin/dashboard',AdminController::class);

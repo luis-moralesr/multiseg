@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
+    <div class="row mb-2">
         <div class="col">
             <div class="CarouselImou">
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -16,11 +16,11 @@
                     </div>
                     <div class="carousel-inner" style="border-radius: 15px">
                         <div class="carousel-item active">
-                            <img src="{{asset('img/redes-1.jpg')}}" class="img-fluid d-block w-100" alt="...">
+                            <img src="{{asset('img/multiseg_academia1.jpeg')}}" class="img-fluid d-block w-100" alt="...">
                             <div class="carousel-caption text-end d-flex justify-content-center align-items-center">
                                 <div class="CarouselText">
-                                    <h3>¡Atención instaladores!</h3>
-                                    <p><strong>MULTISEG</strong> te invita a mejorar tus habilidades en redes con nuestro curso especializado. Aprenderás a optimizar instalaciones de cámaras y asegurar conexiones seguras para nuestros clientes.</p>
+                                    <h3 class="text-danger"><strong>¡Prepárate para ser un experto en seguridad electrónica!</strong></h3>
+                                    <p>Te invitamos a nuestros cursos prácticos de instalación y programación de equipos como CCTV análogo e IP, control de acceso, videoporteros, alarmas, cercas electrificadas ¡y mucho más!</p>
                                     <a href="{{asset('/welcome')}}" class="btn btn-outline-light">Ver más</a>
                                 </div>
                             </div>
@@ -29,16 +29,17 @@
                             <img src="{{asset('img/video-seguridad-2.png')}}" class="img-fluid d-block w-100" alt="...">
                             <div class="carousel-caption text-end d-flex justify-content-center align-items-center">
                                 <div class="CarouselText">
-                                    <p>Mejora tus habilidades con nuestro curso especializado en cámaras para estacionamientos. Aprende técnicas avanzadas para maximizar seguridad y cobertura en instalaciones de alto rendimiento.</p>
+                                    <p>Mejora tus habilidades con nuestros cursos.
+                                        Aprende técnicas avanzadas para maximizar seguridad y cobertura en instalaciónes de alto rendimiento.</p>
                                     <a href="{{asset('/welcome')}}" class="btn btn-outline-light">Ver más</a>
                                 </div>
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="{{asset('img/imou3.jpg')}}" class="img-fluid d-block w-100" alt="...">
+                            <img src="{{asset('img/multiseg_academia2.jpeg')}}" class="img-fluid d-block w-100" alt="...">
                             <div class="carousel-caption text-end d-flex justify-content-center align-items-center">
                                 <div class="CarouselText">
-                                    <h3>¡Instaladores, lleven sus conocimientos al siguiente nivel!</h3>
+                                    <h3 class="text-danger"><strong>¡Instaladores, lleven sus conocimientos al siguiente nivel!</strong></h3>
                                     <p>Únanse a nuestro curso de cámaras IP y dominen las últimas técnicas en instalación y configuración de seguridad en red.</p>
                                     <a href="{{asset('/welcome')}}" class="btn btn-outline-light">Ver más</a>
                                 </div>
@@ -60,31 +61,28 @@
             </div>
         </div>
     </div>
-    <hr>
+    <br>
     <div class="row">
-    <div class="container p-5 banner-content shadow-lg">
-        <div class="row d-flex align-items-center justify-content-center">
-            <div class="col-12 col-md-6 ">
-                <h1 class="display-5 fw-bold text-primary text-center">¡Bienvenido a <strong>Multiseg Academia</strong>!</h1>
-                <p class="coupon-code  text-center fw-bold">Encuentra cursos avalados por <strong>Dahua Technology</strong>, líder mundial en soluciones de videovigilancia. </p>
-               <p class="coupon-code  fw-bold">Nuestros cursos están diseñados para que cualquier persona, desde principiantes hasta profesionales, aprenda a instalar y configurar cámaras IP de forma práctica y sencilla. ¡Inscríbete hoy y adquiere las habilidades que necesitas para destacar en el mundo de la seguridad!</p>
-            </div>
-            <div class="col-12 col-md-6">
-                <img src="{{asset('img/dahua.jpg')}}" alt="" class="img-fluid">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <a href="{{ asset('/welcome') }}" class="btn btn-outline-primary">
+        <div class="container col-12 col-md-10">
+        <div class="card shadow-lg border-danger">
+            <div class="card-body text-center p-5">
+                <h1 class="display-5 fw-bold text-danger mb-4">¡Prepárate para ser un experto en seguridad electrónica!</h1>
+                <p class="fw-bold mb-2">
+                    Te invitamos a nuestros cursos prácticos de instalación y programación de equipos como CCTV análogo e IP, control de acceso, videoporteros, alarmas, cercas electrificadas ¡y mucho más!
+                </p>
+                <p class="fw-bold mb-2">Constancia al finalizar cada curso</p>
+                <p class="fw-bold mb-2">Haz crecer tus habilidades y amplía tus oportunidades con nosotros en Multiseg!</p>
+                <p class="fw-bold">¡Inscríbete y asegura tu futuro!</p>
+                <div class="d-grid col-md-6 mx-auto mt-4">
+                    <a href="{{ asset('/welcome') }}" class="btn btn-outline-primary btn-lg fw-bold">
                         INGRESAR
                     </a>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
+    </div>
 </div>
 
 <div id="to-top" class="scroll-button on">
@@ -92,6 +90,8 @@
         <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
       </svg></a>
 </div>
+
+
 @endsection
 
 <style>
@@ -212,5 +212,6 @@ body{
 }
 
     </style>
+
 
 

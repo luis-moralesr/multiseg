@@ -14,11 +14,13 @@
         <div class="row justify-content-center mb-1">
             <div class="col-12 col-md-8">
                 <div class="video-container">
-                    <iframe id="video" src="{{$courses->url}}?api=1&player_id=video"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                </iframe>
+                    <iframe id="video"
+                    src="{{ $courses->url }}"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+
                 </div>
 
             </div>
@@ -166,151 +168,96 @@
     }
 </style>
 <script>
-    // Crear el elemento script para cargar la API de Vimeo
-    var script = document.createElement('script');
-    script.src = "https://player.vimeo.com/api/player.js";
-    document.head.appendChild(script);
+    // Asegúrate de que `@vimeo/player` esté cargado si no está incluido en el HTML
+    var player;
+    var courseId = {{ $courses->id }}; // Asigna el ID del curso desde Blade
+    var maxAllowedTime = 0; // Almacena el progreso guardado
+    var enrollmentId = {{ $enrollmentId ?? 'null' }}; // ID de la inscripción desde Blade o null
 
-    script.onload = function() {
-        var iframe = document.querySelector('#video');
-        var player = new Vimeo.Player(iframe);
+    // Inicializa el reproductor de Vimeo
+    document.addEventListener("DOMContentLoaded", function() {
+        player = new Vimeo.Player('video'); // Crea el reproductor con el id correcto
 
-        var courseId = {{ $courses->id }}; // ID del curso desde Blade
-        var maxAllowedTime = 0; // Progreso guardado
-        var enrollmentId = {{ $enrollmentId ?? 'null' }}; // ID de la inscripción desde Blade o null
+        // Evento para controlar el progreso del video
+        player.on('timeupdate', function(data) {
+            console.log(`Reproduciendo en el segundo: ${Math.floor(data.seconds)}s`);
 
-        if (enrollmentId === null) {
-            console.error('No se encontró inscripción para este curso.');
-        }
-
-        // Obtener el progreso del video al cargar la página
-        axios.get("{{ route('enrollment.getProgress', ['id' => $courses->id]) }}")
-            .then(response => {
-                maxAllowedTime = response.data.progress;
-
-                // Obtener la duración del video y ajustar el tiempo de inicio
-                player.getDuration().then(duration => {
-                    if (maxAllowedTime < duration) {
-                        player.setCurrentTime(maxAllowedTime); // Establecer el tiempo solo si es válido
-                    } else {
-                        console.warn("El tiempo de progreso es mayor que la duración del video.");
-                        maxAllowedTime = 0; // Reiniciar si es mayor
-                    }
-                });
-            })
-            .catch(error => {
-                console.error("Error al obtener el progreso:", error);
-            });
-
-        // Eventos del reproductor
-        player.on('play', function() {
-            console.log('El video está reproduciéndose.');
-            trackProgress();
+            // Guarda el progreso si se ha avanzado más allá del progreso guardado
+            if (data.seconds > maxAllowedTime) {
+                saveProgress(data.seconds);
+                maxAllowedTime = data.seconds; // Actualiza el progreso máximo permitido
+            }
         });
 
-        player.on('pause', function() {
-            console.log('El video está en pausa.');
-            stopTrackingProgress();
-            saveProgress();
-        });
-
+        // Evento cuando el video llega al final
         player.on('ended', function() {
-            console.log('El video ha terminado. Marcando el curso como completado...');
-            stopTrackingProgress();
+            console.log('El video ha terminado.');
+
+            // Marcar curso como completado
             markCourseAsCompleted();
+
+            // Generar certificado
             generateCertification(enrollmentId);
+
+            // Recargar la página después de 1 segundo
             setTimeout(() => {
-                location.reload(); // Recarga la página después de 1 segundo
+                location.reload();
             }, 1000);
         });
+    });
 
-        // Seguimiento de progreso
-        var progressInterval;
-        function trackProgress() {
-            progressInterval = setInterval(() => {
-                player.getCurrentTime().then(currentTime => {
-                    console.log(`Reproduciendo en el segundo: ${Math.floor(currentTime)}s`);
-                    if (currentTime > maxAllowedTime) {
-                        maxAllowedTime = currentTime;
-                    }
-                });
-            }, 5000); // Comprobar progreso cada 5 segundos
-        }
-
-        function stopTrackingProgress() {
-            clearInterval(progressInterval);
-        }
-
-        // Guardar el progreso actual
-        function saveProgress() {
-            player.getCurrentTime().then(currentTime => {
-                if (currentTime > maxAllowedTime) {
-                    axios.post("{{ route('enrollment.progress') }}", {
-                        course_id: courseId,
-                        progress: currentTime
-                    }, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: 'api key', // Reemplaza con tu API key
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                        }
-                    })
-                    .then(response => {
-                        console.log("Progreso guardado:", response.data);
-                    })
-                    .catch(error => {
-                        console.error("Error al guardar el progreso:", error);
-                    });
-                }
-            });
-        }
-
-        // Generar el certificado
-        function generateCertification(enrollmentId) {
-            console.log("Creando registro de certificado...");
-            axios.post("{{ route('certifications.store') }}", {
-                enrollment_id: enrollmentId
-            }, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: 'api key',
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                }
-            })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error("Error al generar el certificado:", error);
-            });
-        }
-
-        // Marcar el curso como completado
-        function markCourseAsCompleted() {
-            console.log("Marcando el curso como completado...");
-            console.log("courseId:", courseId);
-            console.log("enrollmentId:", enrollmentId);
-
-            if (!courseId || !enrollmentId) {
-                console.error("courseId o enrollmentId no están definidos correctamente.");
-                return;
+    function saveProgress(progress) {
+        axios.post("{{ route('enrollment.progress') }}", {
+            course_id: courseId, // Incluye el ID del curso en el cuerpo de la solicitud
+            progress: progress
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}" // Incluye el token CSRF para proteger la solicitud
             }
+        })
+        .then(response => {
+            console.log("Progreso guardado:", response.data);
+        })
+        .catch(error => {
+            console.error("Error al guardar el progreso:", error);
+        });
+    }
 
-            axios.put(`/markCompleted/${courseId}/${enrollmentId}`, {
-                completed: true
-            }, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: 'api key',
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                }
-            })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error("Error al actualizar el curso como completado:", error);
-            });
-        }
-    };
+    function generateCertification(enrollmentId) {
+        console.log("Creando registro de certificado...");
+        axios.post("{{ route('certifications.store') }}", {
+            enrollment_id: enrollmentId
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            }
+        })
+        .then(response => {
+            console.log("Certificado generado:", response.data);
+        })
+        .catch(error => {
+            console.error("Error al generar el certificado:", error);
+        });
+    }
+
+    function markCourseAsCompleted() {
+        console.log("Marcando el curso como completado...");
+
+        axios.put(`/markCompleted/${courseId}/${enrollmentId}`, {
+            completed: true
+        }, {
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            }
+        })
+        .then(response => {
+            console.log("Curso marcado como completado:", response.data);
+        })
+        .catch(error => {
+            console.error("Error al marcar el curso como completado:", error);
+        });
+    }
 </script>

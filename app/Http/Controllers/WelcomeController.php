@@ -16,9 +16,11 @@ class WelcomeController extends Controller
     }
 
 
-    public function index(Request $request){
+    public function index(Request $request) {
 
-        $query = Course::query()->orderBy('id', 'desc');
+        $query = Course::query()
+            ->where('status', 'active') // Solo cursos con estado 'active'
+            ->orderBy('id', 'desc');
 
         $enrollments = Enrollment::where('student_id', Auth::id())->pluck('course_id')->toArray();
 
@@ -27,6 +29,8 @@ class WelcomeController extends Controller
         }
 
         $courses = $query->paginate(4);
+
         return view('welcome', compact('courses', 'enrollments'));
     }
+
 }
